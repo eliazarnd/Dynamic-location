@@ -1,0 +1,25 @@
+{
+  "name": "dynamic-locations",
+  "version": "1.0.0",
+  "description": "This is a project to update dynamic location with websockets",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^7.4.3",
+    "socket.io": "^4.1.2"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "Express",
+    "NodeJs",
+    "Sockets"
+  ],
+  "author": "Eliazar Lopez Robles",
+  "license": "MIT"
+}
