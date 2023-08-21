@@ -1,31 +1,17 @@
 const Server  = require("./models/server");
 
-const ServerObj = new Server();
+const server = new Server();
 
-const BinModel = new require('./service/BinServiceDatabase');
+server.runServer();
+
+const BinController = require('./controller/bin.controller');
+const binController = new BinController();
 
 // ServerObj.app.get('/', async (req, res) => {
 //   res.sendFile(__dirname + '/index.html');
 // });
 
-ServerObj.app.get('/bins', async (req, res) => {
+server.app.get('/bins', binController.getAll)
 
-  const allBins = await BinModel.getAll();
-  res.status(200).send({
-    response: allBins,
-    status: 200
-  });
-  
-});
-
-ServerObj.app.post('/bins', async (req, res) => {
-  
-  const newBin = await BinModel.addBin(req.body);
-
-  res.status(200).send({
-    response: newBin,
-    status: 200
-  });
-  
-});
+server.app.post('/bins', binController.addNewBin);
 

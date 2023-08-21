@@ -2,10 +2,11 @@ const socket = require('socket.io');
 const BinModel = new require('../service/BinServiceDatabase');
 // const io = require('socket.io')(http);
 
-class Socket {
+class Sockets {
 
-    constructor(http){
-        this.io = socket(http);
+    constructor(io){
+        this.io = io;
+        this.socketEvents();
     }
 
     socketEvents(){
@@ -30,4 +31,4 @@ class Socket {
 }
 }
 
-module.exports = Socket;
+module.exports = Sockets;

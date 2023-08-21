@@ -1,20 +1,17 @@
 const express = require("express");
-const http = require('http');
-const Socket = require('./sockets');
+const http  = require('http');
+const socket = require('socket.io');
+const Sockets = require('./sockets');
 const { connect } = require('../database/database');
-// const io = require('socket.io')(http);
-const cors = require('cors')
+const cors = require('cors');
 
 class Server {
 
     constructor(){
         this.app = express();
-        this.http = http.Server(this.app);
         this.port = process.env.PORT || 3000
-        this.socket = new Socket(this.http);
-        this.middlewares();
-        this.runServer();
-        this.socketEvents();
+        this.server = http.createServer(this.app);
+        this.io = socket(this.server, {});
         this.connectDB = connect;
     }
 
@@ -23,12 +20,16 @@ class Server {
         this.app.use(cors());
     }
 
-    socketEvents(){
-        this.socket.socketEvents();
+    settingSockets(){
+        new Sockets(this.io);
     }
 
     runServer(){
-        this.http.listen(this.port, async () => {
+
+        this.middlewares();
+        this.settingSockets();
+
+        this.server.listen(this.port, async () => {
             await this.connectDB();
             console.log(`Socket.IO server running at http://localhost:${this.port}/`);
           });
