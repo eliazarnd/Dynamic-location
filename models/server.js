@@ -3,6 +3,7 @@ const http = require('http');
 const Socket = require('./sockets');
 const { connect } = require('../database/database');
 // const io = require('socket.io')(http);
+const cors = require('cors')
 
 class Server {
 
@@ -19,6 +20,7 @@ class Server {
 
     middlewares(){
         this.app.use(express.json());
+        this.app.use(cors());
     }
 
     socketEvents(){
